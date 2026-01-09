@@ -14,3 +14,9 @@ format:
 
 run:
 	uv run python -m src.main
+
+build:
+	docker build -t illuin-challenge .
+
+run-jupyter:
+	docker run -p 8888:8888 -v "$(PWD):/app" -v /app/.venv illuin-challenge

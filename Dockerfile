@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.13-slim
 
 WORKDIR /app
 
@@ -14,5 +14,8 @@ RUN uv sync --frozen
 # Copy source code
 COPY . .
 
+# Expose Jupyter port
+EXPOSE 8888
+
 # Entrypoint
-CMD ["uv", "run", "python", "-m", "src.main"]
+CMD ["uv", "run", "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]

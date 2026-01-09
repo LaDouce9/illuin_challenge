@@ -1,0 +1,127 @@
+{
+  "dataset_info": {
+    "total_samples": 4982,
+    "total_columns": 25,
+    "total_unique_tags": 37
+  },
+  "missing_values": {
+    "prob_desc_notes": {
+      "count": 1350,
+      "percentage": 27.097551184263345
+    },
+    "prob_desc_output_spec": {
+      "count": 85,
+      "percentage": 1.7061421116017665
+    },
+    "prob_desc_input_spec": {
+      "count": 33,
+      "percentage": 0.6623845845042151
+    },
+    "prob_desc_output_to": {
+      "count": 1,
+      "percentage": 0.02007226013649137
+    },
+    "prob_desc_input_from": {
+      "count": 1,
+      "percentage": 0.02007226013649137
+    },
+    "difficulty": {
+      "count": 39,
+      "percentage": 0.7828181453231634
+    }
+  },
+  "priority_tags": {
+    "math": {
+      "count": 1408,
+      "frequency": 0.28261742272179846,
+      "avg_difficulty": 1631.0316091954023,
+      "avg_code_length": 1148.051846590909,
+      "avg_desc_length": 879.1626420454545
+    },
+    "graphs": {
+      "count": 542,
+      "frequency": 0.10879164993978321,
+      "avg_difficulty": 2007.0221811460258,
+      "avg_code_length": 1707.979704797048,
+      "avg_desc_length": 1034.6955719557195
+    },
+    "strings": {
+      "count": 422,
+      "frequency": 0.08470493777599358,
+      "avg_difficulty": 1559.9952380952382,
+      "avg_code_length": 1189.0379146919431,
+      "avg_desc_length": 936.7843601895735
+    },
+    "number theory": {
+      "count": 350,
+      "frequency": 0.0702529104777198,
+      "avg_difficulty": 1786.0869565217392,
+      "avg_code_length": 1475.6285714285714,
+      "avg_desc_length": 768.6714285714286
+    },
+    "trees": {
+      "count": 324,
+      "frequency": 0.06503412284223203,
+      "avg_difficulty": 2054.1795665634677,
+      "avg_code_length": 2114.067901234568,
+      "avg_desc_length": 1043.0895061728395
+    },
+    "geometry": {
+      "count": 166,
+      "frequency": 0.03331995182657567,
+      "avg_difficulty": 1925.0,
+      "avg_code_length": 1240.7409638554218,
+      "avg_desc_length": 925.722891566265
+    },
+    "games": {
+      "count": 105,
+      "frequency": 0.021075873143315937,
+      "avg_difficulty": 1789.2156862745098,
+      "avg_code_length": 957.0,
+      "avg_desc_length": 1050.695238095238
+    },
+    "probabilities": {
+      "count": 92,
+      "frequency": 0.01846647932557206,
+      "avg_difficulty": 2236.263736263736,
+      "avg_code_length": 1438.391304347826,
+      "avg_desc_length": 1147.4130434782608
+    }
+  },
+  "tag_analysis": {},
+  "language_distribution": {
+    "Python 3": {
+      "count": 2089,
+      "percentage": 41.930951425130466
+    },
+    "PyPy 3": {
+      "count": 935,
+      "percentage": 18.76756322761943
+    },
+    "PyPy 3-64": {
+      "count": 716,
+      "percentage": 14.37173825772782
+    },
+    "PyPy 2": {
+      "count": 654,
+      "percentage": 13.127258129265353
+    },
+    "Python 2": {
+      "count": 588,
+      "percentage": 11.802488960256925
+    }
+  },
+  "code_stats": {
+    "avg_length_chars": 1232.5730630268968,
+    "median_length_chars": 687.0,
+    "avg_length_lines": 51.654154957848256,
+    "median_length_lines": 33.0
+  },
+  "tags_per_sample": {
+    "avg_total_tags": 2.800481734243276,
+    "median_total_tags": 3.0,
+    "avg_priority_tags": 0.6844640706543557,
+    "samples_with_priority": 2678,
+    "coverage_percentage": 53.753512645523884
+  }
+}

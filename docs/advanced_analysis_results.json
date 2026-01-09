@@ -1,0 +1,180 @@
+{
+  "cooccurrence_lift": {
+    "graphs+trees": {
+      "lift": 3.5178807343628997,
+      "pmi": 1.2578587441951872,
+      "count": 124
+    },
+    "math+number theory": {
+      "lift": 2.6487094155844155,
+      "pmi": 0.9740725083817755,
+      "count": 262
+    },
+    "math+probabilities": {
+      "lift": 1.7307157855731226,
+      "pmi": 0.5485350718254175,
+      "count": 45
+    },
+    "trees+probabilities": {
+      "lift": 1.5042270531400965,
+      "pmi": 0.40827918031697535,
+      "count": 9
+    },
+    "number theory+probabilities": {
+      "lift": 1.3924844720496892,
+      "pmi": 0.33108954162584525,
+      "count": 9
+    },
+    "trees+games": {
+      "lift": 1.317989417989418,
+      "pmi": 0.2761074072084924,
+      "count": 9
+    },
+    "math+geometry": {
+      "lift": 1.2576071330777656,
+      "pmi": 0.22921081465331425,
+      "count": 59
+    },
+    "number theory+games": {
+      "lift": 1.084517006802721,
+      "pmi": 0.08113473286097884,
+      "count": 8
+    },
+    "math+games": {
+      "lift": 0.9772591991341991,
+      "pmi": -0.023003361066911338,
+      "count": 29
+    },
+    "strings+games": {
+      "lift": 0.6746106973595125,
+      "pmi": -0.3936194991433545,
+      "count": 6
+    },
+    "number theory+trees": {
+      "lift": 0.6150617283950617,
+      "pmi": -0.48603264483840447,
+      "count": 14
+    },
+    "graphs+number theory": {
+      "lift": 0.604037954665261,
+      "pmi": -0.50411824417183,
+      "count": 23
+    },
+    "graphs+probabilities": {
+      "lift": 0.5994705599229906,
+      "pmi": -0.5117084134385057,
+      "count": 6
+    },
+    "geometry+games": {
+      "lift": 0.5716580608146874,
+      "pmi": -0.5592142621319954,
+      "count": 2
+    },
+    "strings+trees": {
+      "lift": 0.5465595927681235,
+      "pmi": -0.6041119329040056,
+      "count": 15
+    },
+    "graphs+games": {
+      "lift": 0.5252503953610965,
+      "pmi": -0.6438801865469888,
+      "count": 6
+    },
+    "games+probabilities": {
+      "lift": 0.5157349896480331,
+      "pmi": -0.662162231384438,
+      "count": 1
+    },
+    "math+graphs": {
+      "lift": 0.47656774152968806,
+      "pmi": -0.741145401187117,
+      "count": 73
+    },
+    "number theory+geometry": {
+      "lift": 0.4287435456110155,
+      "pmi": -0.8468963345837764,
+      "count": 5
+    },
+    "math+trees": {
+      "lift": 0.4149919332210999,
+      "pmi": -0.8794961969618056,
+      "count": 38
+    }
+  },
+  "keyword_coverage": {
+    "math": {
+      "desc_coverage": 0.8103693181818182,
+      "code_coverage": 0.1981534090909091,
+      "either_coverage": 0.8352272727272727
+    },
+    "graphs": {
+      "desc_coverage": 0.577490774907749,
+      "code_coverage": 0.3856088560885609,
+      "either_coverage": 0.7029520295202952
+    },
+    "strings": {
+      "desc_coverage": 0.8009478672985783,
+      "code_coverage": 0.14928909952606634,
+      "either_coverage": 0.8127962085308057
+    },
+    "number theory": {
+      "desc_coverage": 0.5342857142857143,
+      "code_coverage": 0.41714285714285715,
+      "either_coverage": 0.6914285714285714
+    },
+    "trees": {
+      "desc_coverage": 0.6481481481481481,
+      "code_coverage": 0.43209876543209874,
+      "either_coverage": 0.7932098765432098
+    },
+    "geometry": {
+      "desc_coverage": 0.9036144578313253,
+      "code_coverage": 0.45180722891566266,
+      "either_coverage": 0.963855421686747
+    },
+    "games": {
+      "desc_coverage": 0.9619047619047619,
+      "code_coverage": 0.4095238095238095,
+      "either_coverage": 0.9809523809523809
+    },
+    "probabilities": {
+      "desc_coverage": 0.6956521739130435,
+      "code_coverage": 0.21739130434782608,
+      "either_coverage": 0.8260869565217391
+    }
+  },
+  "outliers": {
+    "math": {
+      "very_short": 71,
+      "no_keywords": 267
+    },
+    "graphs": {
+      "very_short": 28,
+      "no_keywords": 229
+    },
+    "strings": {
+      "very_short": 22,
+      "no_keywords": 84
+    },
+    "number theory": {
+      "very_short": 18,
+      "no_keywords": 163
+    },
+    "trees": {
+      "very_short": 17,
+      "no_keywords": 114
+    },
+    "geometry": {
+      "very_short": 9,
+      "no_keywords": 16
+    },
+    "games": {
+      "very_short": 6,
+      "no_keywords": 4
+    },
+    "probabilities": {
+      "very_short": 5,
+      "no_keywords": 28
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "uniqueness": {
+    "src_uid_unique": true,
+    "code_uid_unique": true,
+    "desc_duplicates": 11,
+    "code_duplicates": 1
+  },
+  "tags_normalization": {
+    "raw_unique": 37,
+    "normalized_unique": 37,
+    "has_variants": false
+  },
+  "language": {
+    "non_ascii_count": 87,
+    "non_ascii_percentage": 1.746286631874749
+  },
+  "latex": {
+    "samples_with_latex": 2782,
+    "avg_latex_density": 0.09905203409672067
+  },
+  "exec_outcome": {
+    "passed_percentage": 100.0
+  },
+  "missingness": {
+    "notes_missing_percentage": 27.097551184263345
+  },
+  "label_complexity": {
+    "avg_label_density": 0.07568869552008854,
+    "unique_combinations": 1730
+  }
+}

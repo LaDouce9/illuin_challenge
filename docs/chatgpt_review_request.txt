@@ -1,0 +1,312 @@
+# CONTEXTE DU CHALLENGE - DEMANDE D'AVIS CRITIQUE SUR L'EDA
+
+## 1. PRÉSENTATION DU CHALLENGE
+
+### Objectif
+Développer un algorithme de classification multi-label pour prédire les tags algorithmiques associés à des exercices de programmation issus de Codeforces.
+
+### Contraintes
+- **Délai** : 4 jours (rendu lundi)
+- **Environnement** : CPU uniquement (pas de GPU)
+- **Performance** : Temps de prédiction < 10 secondes par exemple
+- **Focus** : 8 tags prioritaires parmi 37 tags totaux
+
+### Tags Prioritaires
+```
+['math', 'graphs', 'strings', 'number theory', 'trees', 'geometry', 'games', 'probabilities']
+```
+
+### Livrables Attendus
+1. CLI Python pour prédiction et évaluation
+2. Code d'entraînement du modèle
+3. Slides de présentation
+4. Métriques par tag (identifier quels tags sont les mieux prédits)
+
+---
+
+## 2. STRUCTURE DU DATASET
+
+### Vue d'Ensemble
+- **4982 échantillons** (exercices uniques)
+- **21 colonnes** d'origine
+- **37 tags uniques** au total
+- **Format** : JSON (un fichier par échantillon)
+
+### Colonnes Principales
+
+#### Métadonnées du Problème
+```
+prob_desc_description       : Description textuelle du problème algorithmique
+prob_desc_input_spec        : Spécification des entrées
+prob_desc_output_spec       : Spécification des sorties
+prob_desc_sample_inputs     : Exemples d'entrées
+prob_desc_sample_outputs    : Exemples de sorties
+prob_desc_notes             : Notes additionnelles (27% manquant)
+difficulty                  : Niveau de difficulté (800-3500, 0.78% manquant)
+prob_desc_time_limit        : Limite de temps d'exécution
+prob_desc_memory_limit      : Limite de mémoire
+prob_desc_created_at        : Timestamp de création
+```
+
+#### Code Source
+```
+source_code                 : Code Python solution (CIBLE pour features)
+lang                        : Langage (Python 2/3, PyPy 2/3/3-64)
+exec_outcome                : Résultat d'exécution (PASSED/FAILED)
+```
+
+#### Cible
+```
+tags                        : Liste de tags algorithmiques (VARIABLE CIBLE)
+                             Exemples: ['greedy', 'math', 'implementation']
+                                      ['graphs', 'trees', 'dfs and similar']
+```
+
+#### Identifiants
+```
+src_uid                     : ID unique du problème
+code_uid                    : ID unique de la solution
+file_name                   : Fichier source (train_000.jsonl, etc.)
+```
+
+---
+
+## 3. EXEMPLES DE DONNÉES
+
+### Exemple 1 : Tag "math"
+```json
+{
+  "prob_desc_description": "Numbers $$$1, 2, 3, \\dots n$$$ (each integer from $$$1$$$ to $$$n$$$ once) are written on a board. In one operation you can erase any two numbers $$$a$$$ and $$$b$$$ from the board and write one integer $$$\\frac{a + b}{2}$$$ rounded up instead...",
+  "source_code": "def ii(): return int(input())\ndef mi(): return map(int, input().split())\n\nt = ii()\nfor _ in range(t):\n    n = ii()\n    print((n + 1) // 2)",
+  "tags": ["greedy", "constructive algorithms", "math", "implementation"],
+  "difficulty": 1000.0,
+  "lang": "Python 3",
+  "exec_outcome": "PASSED"
+}
+```
+
+### Exemple 2 : Tag "graphs"
+```json
+{
+  "prob_desc_description": "You are given an undirected graph consisting of $$$n$$$ vertices and $$$m$$$ edges. Your task is to find the minimum number of coins required to make the graph connected...",
+  "source_code": "def read_nums():\n    return [int(x) for x in input().split()]\n\nn, m = read_nums()\nweights = read_nums()\nedges = []\nfor _ in range(m):\n    u, v, w = read_nums()\n    edges.append((u-1, v-1, w))\n# DSU implementation...",
+  "tags": ["dsu", "greedy", "graphs"],
+  "difficulty": 1900.0,
+  "lang": "Python 3",
+  "exec_outcome": "PASSED"
+}
+```
+
+### Exemple 3 : Tag "number theory"
+```json
+{
+  "prob_desc_description": "A positive (strictly greater than zero) integer is called round if it is of the form d00...0. In other words, a positive integer is round if all its digits except the leftmost (most significant) are equal to zero...",
+  "source_code": "t = int(input())\nfor i in range(t):\n    canPay = int(input())\n    count = 0\n    while canPay > 0:\n        if canPay % 10 != 0:\n            count += 1\n        canPay //= 10\n    print(count)",
+  "tags": ["implementation", "math"],
+  "difficulty": 800.0,
+  "lang": "PyPy 3",
+  "exec_outcome": "PASSED"
+}
+```
+
+---
+
+## 4. RÉSULTATS DE L'EDA RÉALISÉE
+
+### 4.1 Distribution des Tags Prioritaires
+
+| Tag | Count | Fréquence | Difficulté Moy. | Longueur Code Moy. | Longueur Desc. Moy. |
+|-----|-------|-----------|-----------------|---------------------|---------------------|
+| math | 1408 | 28.3% | 1631 | 1148 chars | 879 chars |
+| graphs | 542 | 10.9% | 2007 | 1708 chars | 1035 chars |
+| strings | 422 | 8.5% | 1560 | 1189 chars | 937 chars |
+| number theory | 350 | 7.0% | 1786 | 1476 chars | 769 chars |
+| trees | 324 | 6.5% | 2054 | 2114 chars | 1043 chars |
+| geometry | 166 | 3.3% | 1925 | 1241 chars | 926 chars |
+| games | 105 | 2.1% | 1789 | 957 chars | 1051 chars |
+| probabilities | 92 | 1.8% | 2236 | 1438 chars | 1147 chars |
+
+**Observations :**
+- Déséquilibre important : ratio 15:1 entre `math` et `probabilities`
+- Corrélation difficulté/longueur code : tags difficiles → code plus long
+- Couverture : 53.8% des échantillons ont au moins un tag prioritaire (2678/4982)
+
+### 4.2 Valeurs Manquantes
+
+| Colonne | Manquant | Pourcentage |
+|---------|----------|-------------|
+| prob_desc_notes | 1350 | 27.1% |
+| prob_desc_output_spec | 85 | 1.7% |
+| difficulty | 39 | 0.78% |
+| prob_desc_input_spec | 33 | 0.66% |
+| prob_desc_output_to | 1 | 0.02% |
+| prob_desc_input_from | 1 | 0.02% |
+
+**Décision prise :** Qualité excellente, valeurs manquantes négligeables.
+
+### 4.3 Caractéristiques Multi-Label
+- **Moyenne de tags par échantillon** : 2.8
+- **Médiane** : 3 tags
+- **Tags prioritaires par échantillon** : 0.68 en moyenne
+- **Tags non mutuellement exclusifs** : co-occurrences fréquentes
+
+### 4.4 Distribution des Langages
+
+| Langage | Count | Pourcentage |
+|---------|-------|-------------|
+| Python 3 | 2089 | 41.9% |
+| PyPy 3 | 935 | 18.8% |
+| PyPy 3-64 | 716 | 14.4% |
+| PyPy 2 | 654 | 13.1% |
+| Python 2 | 588 | 11.8% |
+
+### 4.5 Statistiques du Code Source
+- **Longueur moyenne** : 1233 caractères, 52 lignes
+- **Médiane** : 687 caractères, 33 lignes
+- **Distribution** : Asymétrique (longue queue à droite)
+- **Complexité** (échantillon) :
+  - Fonctions : Faible (code procédural dominant)
+  - Boucles : Présentes dans la majorité
+  - Conditions : Nombreuses
+
+### 4.6 Mots-Clés Discriminants Identifiés (NLP)
+Extraction via CountVectorizer sur descriptions nettoyées :
+- **graphs** : "graph", "node", "edge", "vertex", "path"
+- **trees** : "tree", "root", "parent", "child", "leaf"
+- **number theory** : "prime", "divisor", "gcd", "modulo", "factor"
+- **probabilities** : "probability", "expected", "random", "distribution"
+
+---
+
+## 5. APPROCHE PROPOSÉE
+
+### 5.1 Feature Engineering
+**Features Textuelles (Description) :**
+1. TF-IDF (uni/bi/tri-grammes, max_features=5000-10000)
+2. Features binaires (présence de mots-clés algorithmiques)
+3. Longueur de la description
+
+**Features Code Source :**
+1. TF-IDF sur le code tokenisé
+2. Features AST (nombre de fonctions, boucles, conditions, profondeur)
+3. Longueur du code (lignes, caractères)
+4. Imports utilisés
+
+**Features Structurées :**
+- `difficulty` (normalisé)
+- `lang` (one-hot encoding)
+- `exec_outcome` (binaire)
+
+### 5.2 Modélisation
+**Approche** : Classifier Chain avec XGBoost/LightGBM
+
+**Justification :**
+- Capture les dépendances entre tags (co-occurrence)
+- Performant sur CPU
+- Interprétable
+- Gère bien les features sparse (TF-IDF)
+
+**Gestion du déséquilibre :**
+- Weighted loss (`scale_pos_weight`)
+- Stratified split multi-label
+- Potentiellement MLSMOTE pour tags rares
+
+### 5.3 Métriques
+- Micro F1-Score (métrique principale)
+- Macro F1-Score (équité entre tags)
+- F1-Score par tag (identifier les mieux/moins bien prédits)
+- Hamming Loss
+
+---
+
+## 6. QUESTIONS POUR CHATGPT
+
+### 6.1 Validation de l'Approche
+1. **L'analyse EDA est-elle complète ?** Y a-t-il des analyses manquantes critiques ?
+2. **Les features proposées sont-elles pertinentes ?** Manque-t-il des features évidentes ?
+3. **L'approche Classifier Chain + XGBoost est-elle optimale** pour ce problème multi-label avec déséquilibre ?
+
+### 6.2 Points d'Attention à Vérifier
+
+#### Qualité du Texte
+- **Formules LaTeX** : Les descriptions contiennent des formules `$$$...$$$`. Faut-il :
+  - Les supprimer complètement ?
+  - Les remplacer par des tokens spéciaux ?
+  - Extraire des features (nombre de formules, complexité) ?
+
+- **Langue** : Toutes les descriptions sont-elles en anglais ? Y a-t-il des caractères spéciaux problématiques ?
+
+- **Nettoyage** : Le nettoyage actuel (suppression LaTeX, caractères spéciaux, lowercase) est-il suffisant ?
+
+#### Exploitabilité des Variables
+- **`prob_desc_notes`** (27% manquant) : Faut-il l'utiliser malgré les valeurs manquantes ? Imputation ou suppression ?
+
+- **`difficulty`** (0.78% manquant) : Imputation par médiane du tag ou suppression des 39 lignes ?
+
+- **`exec_outcome`** : Est-ce une feature pertinente ? Risque de data leakage ?
+
+- **Différences Python 2/3** : Faut-il normaliser la syntaxe ou simplement utiliser `lang` comme feature catégorielle ?
+
+#### Code Source
+- **Parsing AST** : Risque d'erreurs de parsing (SyntaxError) ? Comment gérer ?
+
+- **Imports** : Faut-il créer des features binaires pour chaque import courant (collections, itertools, math, etc.) ?
+
+- **Commentaires** : Faut-il les supprimer avant TF-IDF ou les conserver (peuvent contenir des indices) ?
+
+### 6.3 Stratégies Alternatives
+1. **Filtrage du dataset** : Faut-il ne garder que les 2678 échantillons avec au moins un tag prioritaire, ou utiliser tous les 4982 ?
+
+2. **Gestion des tags rares** :
+   - Accepter une performance moindre sur `games` et `probabilities` ?
+   - Techniques spécifiques (focal loss, MLSMOTE) ?
+   - Regrouper certains tags ?
+
+3. **Approches alternatives** :
+   - Binary Relevance (plus simple, baseline) ?
+   - Label Powerset (si peu de combinaisons uniques) ?
+   - Sentence Transformers (all-MiniLM-L6-v2) pour embeddings sémantiques ?
+
+### 6.4 Optimisations
+1. **Réduction de dimensionnalité** : PCA/TruncatedSVD sur TF-IDF pour accélérer l'inférence ?
+
+2. **Feature selection** : Techniques pour identifier les features les plus importantes ?
+
+3. **Ensembling** : Combiner plusieurs modèles (TF-IDF+LR, TF-IDF+XGB, Embeddings+RF) ?
+
+### 6.5 Validation
+1. **Split stratifié** : La stratégie 70/15/15 avec `MultilabelStratifiedShuffleSplit` est-elle optimale ?
+
+2. **Cross-validation** : Faut-il faire du k-fold CV multi-label ou un simple train/val/test suffit (contrainte de temps) ?
+
+3. **Métriques** : Les métriques choisies (Micro F1, Macro F1, F1 par tag) sont-elles suffisantes ?
+
+---
+
+## 7. DEMANDE SPÉCIFIQUE
+
+**En tant qu'expert en ML/NLP, pouvez-vous :**
+
+1. **Critiquer l'EDA réalisée** : Quels points ont été négligés ? Quelles analyses supplémentaires seraient cruciales ?
+
+2. **Proposer des améliorations** : Features additionnelles, preprocessing alternatif, approches de modélisation complémentaires ?
+
+3. **Identifier les risques** : Quels pièges éviter ? Quelles hypothèses valider avant de modéliser ?
+
+4. **Prioriser les actions** : Avec 3 jours restants (feature engineering, modélisation, CLI, slides), quelles sont les optimisations à fort ROI ?
+
+5. **Suggérer des quick wins** : Techniques simples mais efficaces pour améliorer rapidement les performances ?
+
+---
+
+## 8. FICHIERS DISPONIBLES
+
+- `docs/priority_tags_distribution.png` - Visualisation distribution
+- `docs/cooccurrence_heatmap.png` - Matrice de co-occurrence
+- `docs/tag_characteristics.png` - Caractéristiques par tag
+- `docs/eda_results.json` - Résultats détaillés (JSON)
+- `data/processed/dataset_with_eda_features.parquet` - Dataset enrichi (9.3MB)
+
+---
+
+**Merci pour votre analyse critique ! Nous sommes 3 à réfléchir sur ce challenge (moi, l'utilisateur, et vous), et votre avis externe sera précieux pour valider ou challenger nos hypothèses.**
