@@ -8,6 +8,9 @@ import seaborn as sns
 from typing import List, Dict, Tuple
 from collections import Counter
 import ast
+import json
+from pathlib import Path
+from matplotlib.patches import Patch
 
 
 # Priority tags for the challenge
@@ -27,9 +30,6 @@ def load_dataset(data_dir: str) -> pd.DataFrame:
     Returns:
         DataFrame with all samples
     """
-    import json
-    from pathlib import Path
-    
     data = []
     data_path = Path(data_dir)
     
@@ -264,7 +264,6 @@ def plot_tag_distribution(tag_stats: pd.DataFrame, top_n: int = 20, highlight_pr
     ax.invert_yaxis()
     
     if highlight_priority:
-        from matplotlib.patches import Patch
         legend_elements = [
             Patch(facecolor='#2ecc71', label='Priority Tags'),
             Patch(facecolor='#3498db', label='Other Tags')

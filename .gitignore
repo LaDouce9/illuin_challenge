@@ -8,3 +8,4 @@ data/
 notebooks/.ipynb_checkpoints
 .pytest_cache/
 .ruff_cache/
+*.xlsx

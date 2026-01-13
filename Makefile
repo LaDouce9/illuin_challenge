@@ -19,4 +19,4 @@ build:
 	docker build -t illuin-challenge .
 
 run-jupyter:
-	docker run -p 8888:8888 -v "$(PWD):/app" -v /app/.venv illuin-challenge
+	docker run --name illuin-jupyter -p 8888:8888 -v "$(PWD):/app" -v /app/.venv illuin-challenge

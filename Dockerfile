@@ -18,4 +18,8 @@ COPY . .
 EXPOSE 8888
 
 # Entrypoint
-CMD ["uv", "run", "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
+# Option 1: Sans token (simple pour dev local) - Décommentez pour utiliser
+# CMD ["uv", "run", "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--ServerApp.token=''", "--ServerApp.password=''"]
+
+# Option 2: Token fixe (recommandé pour dev local) - Actuellement utilisé
+CMD ["uv", "run", "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--ServerApp.token='illuin2024'"]

@@ -44,7 +44,97 @@ This will create a virtual environment in `.venv` with all the required packages
 
 ## Usage
 
-### Notebooks
+### Option 1: Docker (Recommended)
+
+The easiest way to run the project is using Docker with Jupyter Lab.
+
+#### Build the Docker image
+
+```bash
+docker build -t illuin-challenge .
+```
+
+#### Run Jupyter Lab
+
+**Linux / macOS:**
+```bash
+docker run -d \
+  --name illuin-jupyter \
+  -p 8888:8888 \
+  -v "$(pwd)":/app \
+  illuin-challenge
+```
+
+**Windows (PowerShell):**
+```powershell
+docker run -d `
+  --name illuin-jupyter `
+  -p 8888:8888 `
+  -v "${PWD}:/app" `
+  illuin-challenge
+```
+
+**Windows (Command Prompt):**
+```cmd
+docker run -d ^
+  --name illuin-jupyter ^
+  -p 8888:8888 ^
+  -v "%cd%:/app" ^
+  illuin-challenge
+```
+
+#### Access Jupyter Lab
+
+Open your browser and go to:
+```
+http://localhost:8888/lab?token=illuin2024
+```
+
+**Token:** `illuin2024`
+
+#### Stop the container
+
+```bash
+docker stop illuin-jupyter
+```
+
+#### Restart the container
+
+```bash
+docker start illuin-jupyter
+```
+
+#### Remove the container
+
+```bash
+docker stop illuin-jupyter
+docker rm illuin-jupyter
+```
+
+#### Using Makefile (Linux / macOS / WSL)
+
+If you have `make` available, you can use these shortcuts:
+
+```bash
+# Build the image
+make build
+
+# Run Jupyter Lab
+make run-jupyter
+
+# Stop the container
+make stop
+
+# Restart the container
+make restart
+
+# Clean up (stop and remove container)
+make clean
+```
+
+### Option 2: Local Python Environment
+
+#### Notebooks
 
 To explore the data, you can use the provided Jupyter notebooks.
 
