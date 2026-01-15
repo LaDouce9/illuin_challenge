@@ -1,0 +1,43 @@
+{
+  "model": {
+    "name": "logreg_baseline_all_features",
+    "path": "logreg_baseline_all_features.pkl",
+    "type": "logistic_regression",
+    "features": "all"
+  },
+  "artifacts": {
+    "imputation_values": "data/processed/imputation_values.json",
+    "mlb_encoder": "data/processed/mlb_encoder.pkl",
+    "tfidf_vectorizer": "data/processed/tfidf_vectorizer.pkl",
+    "scaler_dense": "data/processed/scaler_dense_features.pkl",
+    "embeddings_model": "sentence-transformers/all-MiniLM-L6-v2"
+  },
+  "preprocessing": {
+    "text_column_for_embeddings": "prob_desc_description_translated",
+    "text_column_for_tfidf": "unified_document_without_latex",
+    "top_latex_symbols": 30,
+    "min_latex_frequency": 10
+  }
+}
+
+
+    "name": "logreg_baseline_all_features",
+    "path": "logreg_baseline_all_features.pkl",
+    "type": "logistic_regression",
+    "features": "all"
+  },
+  "artifacts": {
+    "imputation_values": "data/processed/imputation_values.json",
+    "mlb_encoder": "data/processed/mlb_encoder.pkl",
+    "tfidf_vectorizer": "data/processed/tfidf_vectorizer.pkl",
+    "scaler_dense": "data/processed/scaler_dense_features.pkl",
+    "embeddings_model": "sentence-transformers/all-MiniLM-L6-v2"
+  },
+  "preprocessing": {
+    "text_column_for_embeddings": "prob_desc_description_translated",
+    "text_column_for_tfidf": "unified_document_without_latex",
+    "top_latex_symbols": 30,
+    "min_latex_frequency": 10
+  }
+}
+

@@ -66,15 +66,7 @@
 2. number theory : 0.10
 3. math : 0.09
 
-### 1.5 exec_outcome : Risque de Leakage
-| exec_outcome | Count | Pourcentage |
-|--------------|-------|-------------|
-| PASSED | 4850 | 97.4% |
-| FAILED | 132 | 2.6% |
-
-**Distribution par tag** : Homogène (~97% PASSED pour tous les tags)
-
-**Décision** : **Ne PAS utiliser `exec_outcome` comme feature** (risque de leakage, non disponible en production).
+l
 
 ### 1.6 Missingness Analysis
 **`prob_desc_notes`** (27% manquant) :

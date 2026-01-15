@@ -14,6 +14,13 @@ RUN uv sync --frozen
 # Copy source code
 COPY . .
 
+# Set Hugging Face cache environment variables (optional, for consistency)
+# In Docker, the default cache location (/root/.cache/huggingface) works fine
+# but you can customize it if needed
+ENV HF_HOME=/app/.cache/huggingface
+ENV HF_HUB_CACHE=/app/.cache/huggingface/hub
+ENV HF_DATASETS_CACHE=/app/.cache/huggingface/datasets
+
 # Expose Jupyter port
 EXPOSE 8888
 
