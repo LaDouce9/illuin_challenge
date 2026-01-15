@@ -59,7 +59,7 @@ def convert_time_limit_column(df: pd.DataFrame, column: str = 'prob_desc_time_li
     """
     df = df.copy()
     
-    print(f"🔄 Conversion de '{column}' en secondes...")
+    print(f"Conversion de '{column}' en secondes...")
     
     # Appliquer la conversion
     df['time_limit_seconds'] = df[column].apply(parse_time_limit)
@@ -69,15 +69,15 @@ def convert_time_limit_column(df: pd.DataFrame, column: str = 'prob_desc_time_li
     n_converted = df['time_limit_seconds'].notna().sum()
     n_missing = df['time_limit_seconds'].isna().sum()
     
-    print(f"\n✅ Conversion terminée:")
+    print(f"\nConversion terminée:")
     print(f"   Converti : {n_converted:4d} / {n_total} ({n_converted/n_total*100:.1f}%)")
     print(f"   Manquant : {n_missing:4d} / {n_total} ({n_missing/n_total*100:.1f}%)")
     
     # Afficher les valeurs uniques converties
     unique_values = df.dropna(subset=['time_limit_seconds'])['time_limit_seconds'].value_counts().sort_index()
-    print(f"\n📊 Valeurs uniques de time_limit_seconds:")
+    print(f"\nValeurs uniques de time_limit_seconds:")
     for value, count in unique_values.items():
-        print(f"   {value:6.1f}s → {count:4d} occurrences")
+        print(f"   {value:6.1f}s -> {count:4d} occurrences")
     
     return df
 

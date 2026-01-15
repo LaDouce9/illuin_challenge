@@ -32,7 +32,7 @@ def extract_all_latex_symbols(df: pd.DataFrame, column: str = 'prob_desc_descrip
         symbols = re.findall(latex_pattern, str(text))
         all_symbols.update(symbols)
     
-    print(f"📝 {len(all_symbols)} symboles LaTeX uniques trouvés")
+    print(f"{len(all_symbols)} symboles LaTeX uniques trouvés")
     
     # Créer un DataFrame binaire (présence/absence)
     latex_stats = {}
@@ -122,32 +122,32 @@ def print_tag_specific_symbols(lift_df: pd.DataFrame,
         lift_threshold (float): Seuil minimal de lift pour considérer un symbole comme "caractéristique"
     """
     print("=" * 100)
-    print("🔍 SYMBOLES LaTeX CARACTÉRISTIQUES PAR TAG")
+    print("SYMBOLES LaTeX CARACTÉRISTIQUES PAR TAG")
     print("=" * 100)
     
     for tag in priority_tags:
         if tag not in lift_df.columns:
             continue
         
-        print(f"\n🏷️  TAG: {tag.upper()}")
+        print(f"\nTAG: {tag.upper()}")
         print("-" * 100)
         
         # Symboles surreprésentés
         enriched = lift_df[tag][lift_df[tag] >= lift_threshold].sort_values(ascending=False).head(top_n)
         
         if len(enriched) > 0:
-            print(f"  ✨ Symboles SURREPRÉSENTÉS (lift ≥ {lift_threshold}):")
+            print(f"  Symboles SURREPRESENTES (lift >= {lift_threshold}):")
             for i, (symbol, lift) in enumerate(enriched.items(), 1):
-                print(f"    {i:2d}. {symbol:20s} → {lift:.2f}x plus fréquent")
+                print(f"    {i:2d}. {symbol:20s} -> {lift:.2f}x plus fréquent")
         else:
-            print(f"  ⚠️  Aucun symbole fortement surreprésenté (lift ≥ {lift_threshold})")
+            print(f"  Aucun symbole fortement surreprésenté (lift >= {lift_threshold})")
         
         # Symboles sous-représentés (optionnel)
         depleted = lift_df[tag][lift_df[tag] <= 0.5].sort_values().head(5)
         if len(depleted) > 0:
-            print(f"\n  📉 Symboles SOUS-REPRÉSENTÉS (lift ≤ 0.5):")
+            print(f"\n  Symboles SOUS-REPRESENTES (lift <= 0.5):")
             for i, (symbol, lift) in enumerate(depleted.items(), 1):
-                print(f"    {i}. {symbol:20s} → {lift:.2f}x moins fréquent")
+                print(f"    {i}. {symbol:20s} -> {lift:.2f}x moins fréquent")
     
     print("\n" + "=" * 100)
 

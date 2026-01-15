@@ -71,7 +71,7 @@ def detect_and_translate(text: str, target_lang: str = 'en') -> tuple:
             return translated_text, detected_lang, 'translated'
         except Exception as e:
             # En cas d'échec de traduction, on retourne l'original
-            print(f"⚠️ Erreur de traduction: {str(e)[:50]}")
+            print(f"Erreur de traduction: {str(e)[:50]}")
             return text, detected_lang, 'error'
             
     except ImportError as e:
@@ -110,16 +110,16 @@ def translate_column(df: pd.DataFrame, column: str, target_lang: str = 'en',
     df = df.copy()
     
     if column not in df.columns:
-        print(f"⚠️ Colonne '{column}' introuvable dans le DataFrame")
+        print(f"Colonne '{column}' introuvable dans le DataFrame")
         return df
     
     # Déterminer le nom de la colonne de destination
     if new_column is None or new_column == "":
         target_column = column
-        print(f"🌐 Traduction de la colonne '{column}' (remplacement in-place)...")
+        print(f"Traduction de la colonne '{column}' (remplacement in-place)...")
     else:
         target_column = f"{column}{new_column}"
-        print(f"🌐 Traduction de la colonne '{column}' → '{target_column}'...")
+        print(f"Traduction de la colonne '{column}' -> '{target_column}'...")
     
     print(f"   Langue cible: {target_lang}")
     
@@ -138,10 +138,10 @@ def translate_column(df: pd.DataFrame, column: str, target_lang: str = 'en',
     n_original = status_counts.get('original', 0)
     n_error = status_counts.get('error', 0) + status_counts.get('unknown', 0) + status_counts.get('not_available', 0)
     
-    print(f"\n✅ Traduction terminée:")
-    print(f"   📝 Traduit:  {n_translated:5d} / {total} ({n_translated/total*100:5.1f}%)")
-    print(f"   ✓  Original: {n_original:5d} / {total} ({n_original/total*100:5.1f}%)")
-    print(f"   ❌ Erreur:   {n_error:5d} / {total} ({n_error/total*100:5.1f}%)")
+    print(f"\nTraduction terminée:")
+    print(f"   Traduit:  {n_translated:5d} / {total} ({n_translated/total*100:5.1f}%)")
+    print(f"   Original: {n_original:5d} / {total} ({n_original/total*100:5.1f}%)")
+    print(f"   Erreur:   {n_error:5d} / {total} ({n_error/total*100:5.1f}%)")
     
     return df
 
@@ -197,13 +197,13 @@ def clean_column_patterns(df: pd.DataFrame, column: str,
     df = df.copy()
     
     if column not in df.columns:
-        print(f"⚠️ Colonne '{column}' introuvable dans le DataFrame")
+        print(f"Colonne '{column}' introuvable dans le DataFrame")
         return df
     
     if new_column is None:
         new_column = f"{column}_cleaned"
     
-    print(f"🧹 Nettoyage des patterns dans '{column}'...")
+    print(f"Nettoyage des patterns dans '{column}'...")
     
     # Appliquer le nettoyage
     df[new_column] = df[column].apply(clean_notes_patterns)
@@ -212,14 +212,14 @@ def clean_column_patterns(df: pd.DataFrame, column: str,
     n_changed = (df[column] != df[new_column]).sum()
     pct = n_changed / len(df) * 100
     
-    print(f"✅ Nettoyage terminé: {n_changed}/{len(df)} lignes modifiées ({pct:.1f}%)")
+    print(f"Nettoyage terminé: {n_changed}/{len(df)} lignes modifiées ({pct:.1f}%)")
     
     # Afficher quelques exemples de changements
     if n_changed > 0:
         changed_mask = df[column] != df[new_column]
         examples = df[changed_mask][[column, new_column]].head(3)
         
-        print(f"\n📋 Exemples de corrections:")
+        print(f"\nExemples de corrections:")
         for idx, row in examples.iterrows():
             orig = row[column][:60] + "..." if len(row[column]) > 60 else row[column]
             clean = row[new_column][:60] + "..." if len(row[new_column]) > 60 else row[new_column]
